@@ -17,7 +17,7 @@ const PaymentOptions = ({
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">결제 옵션</h3>
-      <div className="payment-controls flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <div className="flex gap-2">
           <Button variant="cash" onClick={() => addCoin(100)}>
             <HandCoins /> 100₩

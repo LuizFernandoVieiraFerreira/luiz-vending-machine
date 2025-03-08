@@ -1,11 +1,11 @@
 import { CupSoda, GlassWater, Coffee, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PaymentMethod } from "../types";
+import { ItemType, PaymentMethod } from "../types";
 
 interface Props {
   paymentMethod: PaymentMethod | null;
   balance: number;
-  selectItem: (item: "cola" | "water" | "coffee") => void;
+  selectItem: (item: ItemType) => void;
   receiveChange: () => void;
 }
 
