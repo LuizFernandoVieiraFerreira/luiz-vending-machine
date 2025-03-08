@@ -4,12 +4,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Inventory from "./inventory";
-import Controls from "./controls";
-import VendSlot from "./vend-slots";
-import PaymentOptions from "./payment-options";
-import Purchases from "./purchases";
-import ChangeDisplay from "./change-display";
+import Inventory from "./Inventory";
+import Controls from "./Controls";
+import DispenseSlot from "./DispenseSlot";
+import PaymentOptions from "./PaymentOptions";
+import PurchaseHistory from "./PurchaseHistory";
+import ChangeSlot from "./ChangeSlot";
 import { PaymentMethod } from "../types";
 import { toastConfig } from "../config";
 
@@ -140,7 +140,7 @@ const VendingMachine = () => {
         <div className="w-[352px] h-[500px] p-[20px] rounded-[12px] bg-[#333333] flex gap-2">
           <div className="w-64">
             <Inventory inventory={inventory} />
-            <VendSlot item={vendSlot} />
+            <DispenseSlot item={vendSlot} />
           </div>
           <div className="flex-1">
             <Controls
@@ -149,7 +149,7 @@ const VendingMachine = () => {
               selectItem={selectItem}
               receiveChange={receiveChange}
             />
-            <ChangeDisplay changeReceived={changeReceived} />
+            <ChangeSlot changeReceived={changeReceived} />
           </div>
         </div>
         <div className="w-75 flex flex-col gap-8">
@@ -158,7 +158,7 @@ const VendingMachine = () => {
             addCoin={addCoin}
             toggleCardPaymentMethod={toggleCardPaymentMethod}
           />
-          <Purchases purchases={purchases} />
+          <PurchaseHistory purchases={purchases} />
         </div>
       </div>
     </>

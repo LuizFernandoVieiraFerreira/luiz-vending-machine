@@ -1,10 +1,10 @@
-import { itemIcons } from "./inventory";
+import { itemIcons } from "./Inventory";
 
 interface Props {
   item: string | null;
 }
 
-const VendSlot = ({ item }: Props) => {
+const DispenseSlot = ({ item }: Props) => {
   if (!item)
     return (
       <div className="h-[46px] mt-[10px] mr-[24px] ml-[24px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center" />
@@ -23,4 +23,4 @@ const VendSlot = ({ item }: Props) => {
   );
 };
 
-export default VendSlot;
+export default DispenseSlot;

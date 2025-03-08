@@ -2,7 +2,7 @@ interface Props {
   changeReceived: number | null;
 }
 
-const ChangeDisplay = ({ changeReceived }: Props) => {
+const ChangeSlot = ({ changeReceived }: Props) => {
   return (
     <div className="h-[52px] mx-[6px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center mt-[10px]">
       {changeReceived !== null && <>{changeReceived}₩</>}
@@ -10,4 +10,4 @@ const ChangeDisplay = ({ changeReceived }: Props) => {
   );
 };
 
-export default ChangeDisplay;
+export default ChangeSlot;

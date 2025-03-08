@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { CupSoda, GlassWater, Coffee, Coins } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PaymentMethod } from "../types";
 
 interface Props {

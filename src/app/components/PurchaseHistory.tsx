@@ -1,10 +1,10 @@
-import { itemIcons } from "./inventory";
+import { itemIcons } from "./Inventory";
 
 interface Props {
   purchases: string[];
 }
 
-const Purchases = ({ purchases }: Props) => {
+const PurchaseHistory = ({ purchases }: Props) => {
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">구매한 상품</h3>
@@ -29,4 +29,4 @@ const Purchases = ({ purchases }: Props) => {
   );
 };
 
-export default Purchases;
+export default PurchaseHistory;

@@ -1,5 +1,5 @@
-import { ItemType, Item } from "../types";
 import { CupSoda, GlassWater, Coffee } from "lucide-react";
+import { ItemType, Item } from "../types";
 
 export const itemIcons: Record<
   string,

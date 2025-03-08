@@ -1,6 +1,6 @@
+import { CreditCard, HandCoins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { CreditCard, HandCoins } from "lucide-react";
 import { PaymentMethod } from "../types";
 
 interface Props {
