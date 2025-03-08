@@ -58,7 +58,7 @@ const VendingMachine = () => {
     });
   };
 
-  const toggleCard = () => {
+  const toggleCardPaymentMethod = () => {
     if (paymentMethod === "money") {
       toast.error("돈을 이미 선택했어요.", {
         style: {
@@ -88,7 +88,7 @@ const VendingMachine = () => {
         return prevInventory;
       }
 
-      if (balance < item.price) {
+      if (paymentMethod !== "card" && balance < item.price) {
         toast.error("잔액 부족", {
           style: {
             backgroundColor: "#eab308",
@@ -99,7 +99,10 @@ const VendingMachine = () => {
         return prevInventory;
       }
 
-      setBalance((prevBalance) => prevBalance - item.price);
+      if (paymentMethod !== "card") {
+        setBalance((prevBalance) => prevBalance - item.price);
+      }
+
       setVendSlot(item.name);
       setPurchases((prev) => [...prev, item.name]);
 
@@ -183,7 +186,6 @@ const VendingMachine = () => {
               balance={balance}
               selectItem={selectItem}
               receiveChange={receiveChange}
-              // removeCard={removeCard}
             />
             <ChangeDisplay changeReceived={changeReceived} />
           </div>
@@ -192,7 +194,7 @@ const VendingMachine = () => {
           <PaymentOptions
             paymentMethod={paymentMethod}
             addCoin={addCoin}
-            toggleCard={toggleCard}
+            toggleCardPaymentMethod={toggleCardPaymentMethod}
           />
           <Purchases purchases={purchases} />
         </div>

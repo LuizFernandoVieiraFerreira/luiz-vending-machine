@@ -5,10 +5,14 @@ import { CreditCard, HandCoins } from "lucide-react";
 interface Props {
   paymentMethod: string | null;
   addCoin: (value: number) => void;
-  toggleCard: () => void;
+  toggleCardPaymentMethod: () => void;
 }
 
-const PaymentOptions = ({ addCoin, paymentMethod, toggleCard }: Props) => {
+const PaymentOptions = ({
+  addCoin,
+  paymentMethod,
+  toggleCardPaymentMethod,
+}: Props) => {
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">결제 옵션</h3>
@@ -35,7 +39,7 @@ const PaymentOptions = ({ addCoin, paymentMethod, toggleCard }: Props) => {
             <CreditCard size={20} />
             <Switch
               checked={paymentMethod === "card"}
-              onCheckedChange={toggleCard}
+              onCheckedChange={toggleCardPaymentMethod}
             />
           </div>
         </div>
