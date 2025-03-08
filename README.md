@@ -27,19 +27,19 @@
 #### 동작 원리
 
 - 사용자는 현금(동전/지폐) 또는 카드를 사용하여 결제할 수 있습니다.
-- 사용자가 현금을 삽입하면 잔액이 계속해서 증가합니다.
+- 사용자가 현금을 삽입하면 투입 가능 금액을 초과하기 전까지 잔액이 계속 증가합니다.
 - 사용자가 카드를 선택하면 선택한 제품의 정확한 가격이 청구됩니다.
-- 현금 결제 시, 잔액이 차감됩니다.
+- 현금 결제 시, 구매 금액이 잔액에서 차감됩니다.
 - 사용자는 잔액이 충분한 한 여러 개의 제품을 구매할 수 있습니다.
 - 구매 후 거스름돈은 자동으로 제공되지 않습니다. → 사용자가 동전 버튼을 눌러 거스름돈을 수동으로 가져가야 합니다.
 - 시뮬레이션을 초기화하려면 오른쪽 상단 아이콘을 클릭하세요.
 
 #### 가정
 
-- 사용자가 카드 결제를 선택하면 충분한 잔액이 있다고 가정합니다.
+- 사용자가 카드 결제를 선택하면 결제에 필요한 충분한 잔액이 있다고 가정합니다.
 - 자판기는 항상 사용자에게 거스름돈을 줄 수 있는 충분한 동전을 가지고 있다고 가정합니다.
 - 사용자는 동일한 거래에서 현금과 카드를 동시에 삽입할 수 없습니다.
-- 자판기는 한 번에 보유할 수 있는 금액에 한계가 있습니다.
+- 자판기는 한 번에 투입할 수 있는 현금 금액에 한계가 있습니다.
 
 #### 처리된 예외 사항
 
@@ -85,7 +85,7 @@ To set up and run the project locally, follow these steps:
 #### How It Works
 
 - The user can choose to pay using money (coins/bills) or card.
-- If the user inserts money, the balance will keep increasing as they insert more.
+- If the user inserts money, the balance will keep increasing until it reaches a limit.
 - If the user chooses card, the exact price of the selected product will be charged.
 - Purchases deduct the balance when paying with money.
 - The user can purchase multiple items as long as they have enough balance.
