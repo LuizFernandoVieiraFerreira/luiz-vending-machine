@@ -54,6 +54,8 @@
 
 코드에 대한 추가적인 설명이나 정보가 필요하면 언제든지 연락주세요.
 
+<img src="screenshots/diagram-kr.png"/>
+
 # Vending Machine
 
 ## Overview
@@ -110,4 +112,4 @@ To set up and run the project locally, follow these steps:
 
 If you require any further clarification or additional information regarding the code, please do not hesitate to contact me.
 
-<img src="screenshots/diagram.png"/>
+<img src="screenshots/diagram-en.png"/>
