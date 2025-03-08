@@ -1,16 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
+import { RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Inventory from "./inventory";
 import Controls from "./controls";
 import VendSlot from "./vend-slots";
 import PaymentOptions from "./payment-options";
 import Purchases from "./purchases";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
 import ChangeDisplay from "./change-display";
 import { PaymentMethod } from "../types";
+
+const messages = {
+  purchaseComplete: "구매 완료!",
+  insufficientBalance: "잔액 부족",
+  outOfStock: "품절",
+  balanceLimitExceeded: "잔액 한도를 초과",
+  cardAlreadySelected: "카드는 이미 선택했어요.",
+  moneyAlreadySelected: "돈을 이미 선택했어요.",
+  noChangeToReturn: "반환할 잔액이 없습니다.",
+  changeReturned: (amount: number) => `${amount}₩ 반환 완료!`,
+  machineReset: "자판기가 초기화되었습니다!",
+};
 
 const toastConfig = {
   error: {
@@ -53,13 +65,13 @@ const VendingMachine = () => {
 
   const addCoin = (value: number) => {
     if (paymentMethod === PaymentMethod.Card) {
-      toast.error("카드는 이미 선택했어요.", toastConfig.error);
+      toast.error(messages.cardAlreadySelected, toastConfig.error);
       return;
     }
 
     setBalance((prev) => {
       if (prev >= 10000) {
-        toast.error("잔액 한도를 초과", toastConfig.error);
+        toast.error(messages.balanceLimitExceeded, toastConfig.error);
         return prev;
       }
 
@@ -73,7 +85,7 @@ const VendingMachine = () => {
 
   const toggleCardPaymentMethod = () => {
     if (paymentMethod === PaymentMethod.Money) {
-      toast.error("돈을 이미 선택했어요.", toastConfig.error);
+      toast.error(messages.moneyAlreadySelected, toastConfig.error);
       return;
     }
 
@@ -87,12 +99,12 @@ const VendingMachine = () => {
       const item = prevInventory[itemKey];
 
       if (item.stock <= 0) {
-        toast.error("품절", toastConfig.error);
+        toast.error(messages.outOfStock, toastConfig.error);
         return prevInventory;
       }
 
       if (paymentMethod !== PaymentMethod.Card && balance < item.price) {
-        toast.error("잔액 부족", toastConfig.error);
+        toast.error(messages.insufficientBalance, toastConfig.error);
         return prevInventory;
       }
 
@@ -103,7 +115,7 @@ const VendingMachine = () => {
       setVendSlot(item.name);
       setPurchases((prev) => [...prev, item.name]);
 
-      toast.success("구매 완료!", toastConfig.success);
+      toast.success(messages.purchaseComplete, toastConfig.success);
 
       return {
         ...prevInventory,
@@ -114,14 +126,14 @@ const VendingMachine = () => {
 
   const receiveChange = () => {
     if (balance === 0) {
-      toast.error("반환할 잔액이 없습니다.", toastConfig.error);
+      toast.error(messages.noChangeToReturn, toastConfig.error);
       return;
     }
 
     setChangeReceived(balance);
     setBalance(0);
     setPaymentMethod(null);
-    toast.success(`${balance}₩ 반환 완료!`, toastConfig.info);
+    toast.success(messages.changeReturned(balance), toastConfig.info);
   };
 
   const resetMachine = () => {
@@ -135,7 +147,7 @@ const VendingMachine = () => {
       water: { name: "Water", price: 600, stock: 3 },
       coffee: { name: "Coffee", price: 700, stock: 2 },
     });
-    toast.success("자판기가 초기화되었습니다!", toastConfig.info);
+    toast.success(messages.machineReset, toastConfig.info);
   };
 
   return (
