@@ -7,7 +7,7 @@ interface Props {
 const VendSlot = ({ item }: Props) => {
   if (!item)
     return (
-      <div className="h-[46px] mt-[10px] mr-[112px] ml-[12px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center" />
+      <div className="h-[46px] mt-[10px] mr-[24px] ml-[24px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center" />
     );
 
   const itemKey = Object.keys(itemIcons).find(
@@ -17,7 +17,7 @@ const VendSlot = ({ item }: Props) => {
   const { icon: Icon, color } = itemKey ? itemIcons[itemKey] : itemIcons.water;
 
   return (
-    <div className="h-[46px] mt-[10px] mr-[112px] ml-[12px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center">
+    <div className="h-[46px] mt-[10px] mr-[24px] ml-[24px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center">
       <Icon size={32} className={color} />
     </div>
   );

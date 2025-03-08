@@ -16,7 +16,7 @@ interface Props {
 
 const Inventory = ({ inventory }: Props) => {
   return (
-    <div className="bg-[#f3f3fa] rounded-[6px] flex justify-around py-4 px-2 w-64">
+    <div className="h-[350px] bg-[#f3f3fa] rounded-[6px] flex justify-around py-4 px-2">
       {Object.entries(inventory).map(([key, item]) => {
         const { icon: Icon, color } =
           itemIcons[item.name.toLowerCase()] || itemIcons.water;

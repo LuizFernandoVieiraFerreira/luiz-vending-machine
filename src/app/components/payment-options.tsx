@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { CreditCard, HandCoins } from "lucide-react";
 
 interface Props {
+  paymentMethod: string | null;
   addCoin: (value: number) => void;
-  payWithCard: () => void;
+  toggleCard: () => void;
 }
 
-const PaymentOptions = ({ addCoin, payWithCard }: Props) => {
+const PaymentOptions = ({ addCoin, paymentMethod, toggleCard }: Props) => {
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">결제 옵션</h3>
@@ -29,9 +31,13 @@ const PaymentOptions = ({ addCoin, payWithCard }: Props) => {
           <Button variant="cash" onClick={() => addCoin(10000)}>
             <HandCoins /> 10000₩
           </Button>
-          <Button variant="card" onClick={() => payWithCard()}>
-            <CreditCard /> 카드
-          </Button>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-yellow-500 text-white">
+            <CreditCard size={20} />
+            <Switch
+              checked={paymentMethod === "card"}
+              onCheckedChange={toggleCard}
+            />
+          </div>
         </div>
       </div>
     </div>

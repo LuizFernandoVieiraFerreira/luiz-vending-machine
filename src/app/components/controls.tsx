@@ -1,19 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { CupSoda, GlassWater, Coffee } from "lucide-react";
+import { CupSoda, GlassWater, Coffee, Coins } from "lucide-react";
 
 interface Props {
   paymentMethod: string | null;
   balance: number;
   selectItem: (item: "cola" | "water" | "coffee") => void;
+  receiveChange: () => void;
 }
 
-const Controls = ({ paymentMethod, balance, selectItem }: Props) => {
+const Controls = ({
+  paymentMethod,
+  balance,
+  selectItem,
+  receiveChange,
+}: Props) => {
   return (
-    <div className="h-[350px] flex-1">
+    <div className="h-[326px]">
       <div className="h-[52px] mx-[6px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center mt-6">
         {!paymentMethod || paymentMethod === "money" ? `${balance}₩` : `카드`}
       </div>
-      <div className="items mt-10 flex flex-col gap-2">
+      <div className="items mt-8 flex flex-col gap-2">
         <Button onClick={() => selectItem("cola")}>
           <CupSoda /> 1100₩
         </Button>
@@ -22,6 +28,15 @@ const Controls = ({ paymentMethod, balance, selectItem }: Props) => {
         </Button>
         <Button onClick={() => selectItem("coffee")}>
           <Coffee /> 700₩
+        </Button>
+      </div>
+      <div className="flex justify-center items-center mt-8">
+        <Button
+          variant="outline"
+          className="w-10 h-10 p-0 flex items-center justify-center rounded-full"
+          onClick={receiveChange}
+        >
+          <Coins size={24} />
         </Button>
       </div>
     </div>

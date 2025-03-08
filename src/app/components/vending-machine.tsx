@@ -9,12 +9,12 @@ import Purchases from "./purchases";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
-// import ChangeDisplay from "./change-display";
+import ChangeDisplay from "./change-display";
 
 const VendingMachine = () => {
   const [balance, setBalance] = useState(0);
   const [vendSlot, setVendSlot] = useState<string | null>(null);
-  // const [changeReceived, setChangeReceived] = useState<number | null>(null);
+  const [changeReceived, setChangeReceived] = useState<number | null>(null);
   const [purchases, setPurchases] = useState<string[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<"money" | "card" | null>(
     null
@@ -46,13 +46,13 @@ const VendingMachine = () => {
     });
   };
 
-  const payWithCard = () => {
+  const toggleCard = () => {
     if (paymentMethod === "money") {
       toast.error("돈을 이미 선택했어요.");
       return;
     }
 
-    setPaymentMethod("card");
+    setPaymentMethod((prev) => (prev === "card" ? null : "card"));
   };
 
   const selectItem = (itemKey: keyof typeof inventory) => {
@@ -100,16 +100,17 @@ const VendingMachine = () => {
     });
   };
 
-  // const receiveChange = () => {
-  //   if (balance === 0) {
-  //     toast.error("반환할 잔액이 없습니다.");
-  //     return;
-  //   }
+  const receiveChange = () => {
+    if (balance === 0) {
+      toast.error("반환할 잔액이 없습니다.");
+      return;
+    }
 
-  //   setChangeReceived(balance);
-  //   setBalance(0);
-  //   toast.success(`${balance}₩ 반환 완료!`);
-  // };
+    setChangeReceived(balance);
+    setBalance(0);
+    setPaymentMethod(null);
+    toast.success(`${balance}₩ 반환 완료!`);
+  };
 
   const resetMachine = () => {
     setBalance(0);
@@ -136,25 +137,28 @@ const VendingMachine = () => {
         <RefreshCw size={20} />
       </Button>
       <div className="flex flex-col md:flex-row justify-center items-center min-h-screen gap-8 md:gap-16">
-        <div className="w-[352px] h-[500px] p-[20px] rounded-[12px] bg-[#333333] text-center">
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              <Inventory inventory={inventory} />
-              <Controls
-                paymentMethod={paymentMethod}
-                balance={balance}
-                selectItem={selectItem}
-              />
-              {/* <ChangeDisplay
-                receiveChange={receiveChange}
-                changeReceived={changeReceived}
-              /> */}
-            </div>
+        <div className="w-[352px] h-[500px] p-[20px] rounded-[12px] bg-[#333333] flex gap-2">
+          <div className="w-64">
+            <Inventory inventory={inventory} />
             <VendSlot item={vendSlot} />
+          </div>
+          <div className="flex-1">
+            <Controls
+              paymentMethod={paymentMethod}
+              balance={balance}
+              selectItem={selectItem}
+              receiveChange={receiveChange}
+              // removeCard={removeCard}
+            />
+            <ChangeDisplay changeReceived={changeReceived} />
           </div>
         </div>
         <div className="w-75 flex flex-col gap-8">
-          <PaymentOptions addCoin={addCoin} payWithCard={payWithCard} />
+          <PaymentOptions
+            paymentMethod={paymentMethod}
+            addCoin={addCoin}
+            toggleCard={toggleCard}
+          />
           <Purchases purchases={purchases} />
         </div>
       </div>
