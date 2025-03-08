@@ -5,14 +5,14 @@ import { ItemType, PaymentMethod } from "../types";
 interface Props {
   paymentMethod: PaymentMethod | null;
   balance: number;
-  selectItem: (item: ItemType) => void;
+  purchaseItem: (item: ItemType) => void;
   receiveChange: () => void;
 }
 
 const Controls = ({
   paymentMethod,
   balance,
-  selectItem,
+  purchaseItem,
   receiveChange,
 }: Props) => {
   return (
@@ -22,14 +22,14 @@ const Controls = ({
           ? `${balance}₩`
           : `카드`}
       </div>
-      <div className="items mt-8 flex flex-col gap-2">
-        <Button onClick={() => selectItem("cola")}>
+      <div className="mt-8 flex flex-col gap-2">
+        <Button onClick={() => purchaseItem("cola")}>
           <CupSoda /> 1100₩
         </Button>
-        <Button onClick={() => selectItem("water")}>
+        <Button onClick={() => purchaseItem("water")}>
           <GlassWater /> 600₩
         </Button>
-        <Button onClick={() => selectItem("coffee")}>
+        <Button onClick={() => purchaseItem("coffee")}>
           <Coffee /> 700₩
         </Button>
       </div>

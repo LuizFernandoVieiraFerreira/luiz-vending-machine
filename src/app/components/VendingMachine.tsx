@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { RefreshCw } from "lucide-react";
+import { CupSoda, GlassWater, Coffee, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Inventory from "./Inventory";
 import Controls from "./Controls";
@@ -10,7 +10,7 @@ import DispenseSlot from "./DispenseSlot";
 import PaymentOptions from "./PaymentOptions";
 import PurchaseHistory from "./PurchaseHistory";
 import ChangeSlot from "./ChangeSlot";
-import { PaymentMethod } from "../types";
+import { Item, PaymentMethod } from "../types";
 import { toastConfig } from "../config";
 
 const messages = {
@@ -27,20 +27,22 @@ const messages = {
 
 const VendingMachine = () => {
   const [balance, setBalance] = useState(0);
-  const [vendSlot, setVendSlot] = useState<string | null>(null);
+  const [dispenseSlotItem, setDispenseSlotItem] = useState<Item | null>(null);
   const [changeReceived, setChangeReceived] = useState<number | null>(null);
-  const [purchases, setPurchases] = useState<string[]>([]);
+  const [purchasedItems, setPurchasedItems] = useState<Item[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
 
-  const [inventory, setInventory] = useState({
-    cola: { name: "Cola", price: 1100, stock: 5 },
-    water: { name: "Water", price: 600, stock: 3 },
-    coffee: { name: "Coffee", price: 700, stock: 2 },
-  });
+  const initialInventory = {
+    cola: { name: "Cola", price: 1100, stock: 5, icon: <CupSoda /> },
+    water: { name: "Water", price: 600, stock: 3, icon: <GlassWater /> },
+    coffee: { name: "Coffee", price: 700, stock: 2, icon: <Coffee /> },
+  };
 
-  const addCoin = (value: number) => {
+  const [inventory, setInventory] = useState(initialInventory);
+
+  const addMoney = (value: number) => {
     if (paymentMethod === PaymentMethod.Card) {
       toast.error(messages.cardAlreadySelected, toastConfig.error);
       return;
@@ -71,7 +73,7 @@ const VendingMachine = () => {
     );
   };
 
-  const selectItem = (itemKey: keyof typeof inventory) => {
+  const purchaseItem = (itemKey: keyof typeof inventory) => {
     setInventory((prevInventory) => {
       const item = prevInventory[itemKey];
 
@@ -89,8 +91,8 @@ const VendingMachine = () => {
         setBalance((prevBalance) => prevBalance - item.price);
       }
 
-      setVendSlot(item.name);
-      setPurchases((prev) => [...prev, item.name]);
+      setDispenseSlotItem(item);
+      setPurchasedItems((prev) => [...prev, item]);
 
       toast.success(messages.purchaseComplete, toastConfig.success);
 
@@ -115,15 +117,11 @@ const VendingMachine = () => {
 
   const resetMachine = () => {
     setBalance(0);
-    setVendSlot(null);
+    setDispenseSlotItem(null);
     setChangeReceived(null);
-    setPurchases([]);
+    setPurchasedItems([]);
     setPaymentMethod(null);
-    setInventory({
-      cola: { name: "Cola", price: 1100, stock: 5 },
-      water: { name: "Water", price: 600, stock: 3 },
-      coffee: { name: "Coffee", price: 700, stock: 2 },
-    });
+    setInventory(initialInventory);
     toast.success(messages.machineReset, toastConfig.info);
   };
 
@@ -140,13 +138,13 @@ const VendingMachine = () => {
         <div className="w-[352px] h-[500px] p-[20px] rounded-[12px] bg-[#333333] flex gap-2">
           <div className="w-64">
             <Inventory inventory={inventory} />
-            <DispenseSlot item={vendSlot} />
+            <DispenseSlot item={dispenseSlotItem} />
           </div>
           <div className="flex-1">
             <Controls
               paymentMethod={paymentMethod}
               balance={balance}
-              selectItem={selectItem}
+              purchaseItem={purchaseItem}
               receiveChange={receiveChange}
             />
             <ChangeSlot changeReceived={changeReceived} />
@@ -155,10 +153,10 @@ const VendingMachine = () => {
         <div className="w-75 flex flex-col gap-8">
           <PaymentOptions
             paymentMethod={paymentMethod}
-            addCoin={addCoin}
+            addMoney={addMoney}
             toggleCardPaymentMethod={toggleCardPaymentMethod}
           />
-          <PurchaseHistory purchases={purchases} />
+          <PurchaseHistory purchasedItems={purchasedItems} />
         </div>
       </div>
     </>
