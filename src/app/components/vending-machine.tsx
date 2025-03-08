@@ -28,13 +28,25 @@ const VendingMachine = () => {
 
   const addCoin = (value: number) => {
     if (paymentMethod === "card") {
-      toast.error("카드는 이미 선택했어요.");
+      toast.error("카드는 이미 선택했어요.", {
+        style: {
+          backgroundColor: "#eab308",
+          color: "#1f1f1f",
+          border: "1px solid #eab308",
+        },
+      });
       return;
     }
 
     setBalance((prev) => {
       if (prev >= 10000) {
-        toast.error("잔액 한도를 초과");
+        toast.error("잔액 한도를 초과", {
+          style: {
+            backgroundColor: "#eab308",
+            color: "#1f1f1f",
+            border: "1px solid #eab308",
+          },
+        });
         return prev;
       }
 
@@ -48,7 +60,13 @@ const VendingMachine = () => {
 
   const toggleCard = () => {
     if (paymentMethod === "money") {
-      toast.error("돈을 이미 선택했어요.");
+      toast.error("돈을 이미 선택했어요.", {
+        style: {
+          backgroundColor: "#eab308",
+          color: "#1f1f1f",
+          border: "1px solid #eab308",
+        },
+      });
       return;
     }
 
@@ -102,14 +120,26 @@ const VendingMachine = () => {
 
   const receiveChange = () => {
     if (balance === 0) {
-      toast.error("반환할 잔액이 없습니다.");
+      toast.error("반환할 잔액이 없습니다.", {
+        style: {
+          backgroundColor: "#eab308",
+          color: "#1f1f1f",
+          border: "1px solid #eab308",
+        },
+      });
       return;
     }
 
     setChangeReceived(balance);
     setBalance(0);
     setPaymentMethod(null);
-    toast.success(`${balance}₩ 반환 완료!`);
+    toast.success(`${balance}₩ 반환 완료!`, {
+      style: {
+        background: "#3b82f6",
+        color: "#fff",
+        border: "1px solid #3b82f6",
+      },
+    });
   };
 
   const resetMachine = () => {
@@ -118,6 +148,11 @@ const VendingMachine = () => {
     setChangeReceived(null);
     setPurchases([]);
     setPaymentMethod(null);
+    setInventory({
+      cola: { name: "Cola", price: 1100, stock: 5 },
+      water: { name: "Water", price: 600, stock: 3 },
+      coffee: { name: "Coffee", price: 700, stock: 2 },
+    });
     toast.success("자판기가 초기화되었습니다!", {
       style: {
         background: "#3b82f6",
