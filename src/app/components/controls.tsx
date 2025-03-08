@@ -10,7 +10,7 @@ interface Props {
 const Controls = ({ paymentMethod, balance, selectItem }: Props) => {
   return (
     <div className="h-[350px] flex-1">
-      <div className="display h-[52px] mx-[6px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center mt-6">
+      <div className="h-[52px] mx-[6px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center mt-6">
         {!paymentMethod || paymentMethod === "money" ? `${balance}₩` : `카드`}
       </div>
       <div className="items mt-10 flex flex-col gap-2">
