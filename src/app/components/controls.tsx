@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { CupSoda, GlassWater, Coffee, Coins } from "lucide-react";
+import { PaymentMethod } from "../types";
 
 interface Props {
-  paymentMethod: string | null;
+  paymentMethod: PaymentMethod | null;
   balance: number;
   selectItem: (item: "cola" | "water" | "coffee") => void;
   receiveChange: () => void;
@@ -17,7 +18,9 @@ const Controls = ({
   return (
     <div className="h-[326px]">
       <div className="h-[52px] mx-[6px] bg-[#f3f3fa] rounded-[6px] flex justify-center items-center mt-6">
-        {!paymentMethod || paymentMethod === "money" ? `${balance}₩` : `카드`}
+        {!paymentMethod || paymentMethod === PaymentMethod.Money
+          ? `${balance}₩`
+          : `카드`}
       </div>
       <div className="items mt-8 flex flex-col gap-2">
         <Button onClick={() => selectItem("cola")}>

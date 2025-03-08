@@ -10,13 +10,14 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import ChangeDisplay from "./change-display";
+import { PaymentMethod } from "../types";
 
 const VendingMachine = () => {
   const [balance, setBalance] = useState(0);
   const [vendSlot, setVendSlot] = useState<string | null>(null);
   const [changeReceived, setChangeReceived] = useState<number | null>(null);
   const [purchases, setPurchases] = useState<string[]>([]);
-  const [paymentMethod, setPaymentMethod] = useState<"money" | "card" | null>(
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
 
@@ -27,7 +28,7 @@ const VendingMachine = () => {
   });
 
   const addCoin = (value: number) => {
-    if (paymentMethod === "card") {
+    if (paymentMethod === PaymentMethod.Card) {
       toast.error("카드는 이미 선택했어요.", {
         style: {
           backgroundColor: "#eab308",
@@ -51,7 +52,7 @@ const VendingMachine = () => {
       }
 
       if (!paymentMethod) {
-        setPaymentMethod("money");
+        setPaymentMethod(PaymentMethod.Money);
       }
 
       return prev + value;
@@ -59,7 +60,7 @@ const VendingMachine = () => {
   };
 
   const toggleCardPaymentMethod = () => {
-    if (paymentMethod === "money") {
+    if (paymentMethod === PaymentMethod.Money) {
       toast.error("돈을 이미 선택했어요.", {
         style: {
           backgroundColor: "#eab308",
@@ -70,7 +71,9 @@ const VendingMachine = () => {
       return;
     }
 
-    setPaymentMethod((prev) => (prev === "card" ? null : "card"));
+    setPaymentMethod((prev) =>
+      prev === PaymentMethod.Card ? null : PaymentMethod.Card
+    );
   };
 
   const selectItem = (itemKey: keyof typeof inventory) => {
@@ -88,7 +91,7 @@ const VendingMachine = () => {
         return prevInventory;
       }
 
-      if (paymentMethod !== "card" && balance < item.price) {
+      if (paymentMethod !== PaymentMethod.Card && balance < item.price) {
         toast.error("잔액 부족", {
           style: {
             backgroundColor: "#eab308",
@@ -99,7 +102,7 @@ const VendingMachine = () => {
         return prevInventory;
       }
 
-      if (paymentMethod !== "card") {
+      if (paymentMethod !== PaymentMethod.Card) {
         setBalance((prevBalance) => prevBalance - item.price);
       }
 

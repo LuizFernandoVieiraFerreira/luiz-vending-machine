@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { CreditCard, HandCoins } from "lucide-react";
+import { PaymentMethod } from "../types";
 
 interface Props {
-  paymentMethod: string | null;
+  paymentMethod: PaymentMethod | null;
   addCoin: (value: number) => void;
   toggleCardPaymentMethod: () => void;
 }
@@ -38,7 +39,7 @@ const PaymentOptions = ({
           <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-yellow-500 text-white">
             <CreditCard size={20} />
             <Switch
-              checked={paymentMethod === "card"}
+              checked={paymentMethod === PaymentMethod.Card}
               onCheckedChange={toggleCardPaymentMethod}
             />
           </div>
