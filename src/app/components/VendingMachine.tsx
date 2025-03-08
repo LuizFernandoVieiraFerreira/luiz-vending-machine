@@ -14,14 +14,14 @@ import { Item, PaymentMethod } from "../types";
 import { toastConfig } from "../config";
 
 const messages = {
-  purchaseComplete: "구매 완료!",
-  insufficientBalance: "잔액 부족",
+  purchaseComplete: "구매를 완료했습니다!",
+  insufficientBalance: "잔액이 부족합니다",
   outOfStock: "품절",
-  balanceLimitExceeded: "잔액 한도를 초과",
-  cardAlreadySelected: "카드는 이미 선택했어요.",
-  moneyAlreadySelected: "돈을 이미 선택했어요.",
-  noChangeToReturn: "반환할 잔액이 없습니다.",
-  changeReturned: (amount: number) => `${amount}₩ 반환 완료!`,
+  balanceLimitExceeded: "투입 가능한 금액을 초과했습니다",
+  cardAlreadySelected: "이미 카드를 선택했습니다",
+  moneyAlreadySelected: "이미 현금을 선택했습니다",
+  noChangeToReturn: "반환할 거스름돈이 없습니다",
+  changeReturned: (amount: number) => `${amount}₩ 반환 완료했습니다!`,
   machineReset: "자판기가 초기화되었습니다!",
 };
 
